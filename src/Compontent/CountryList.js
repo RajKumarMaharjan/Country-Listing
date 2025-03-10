@@ -5,6 +5,7 @@ const CountryList = () => {
   const [countriesData, setCountriesData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const fetchCountryData = async () => {
@@ -23,6 +24,15 @@ const CountryList = () => {
     };
     fetchCountryData();
   }, []);
+
+  const filteredCountries = countriesData.filter(country => {
+    const countryName = country.name.common.toLowerCase();
+    const capitalName = (country.capital?.[0] || " ").toLowerCase();
+    return (
+        countryName.includes(searchQuery.toLowerCase()) ||
+        capitalName.includes(searchQuery.toLocaleLowerCase())
+    ); 
+  })
 
   if (loading) {
     return <div>Loading...</div>;
@@ -45,6 +55,8 @@ const CountryList = () => {
           type="text"
           placeholder="Search countries by name, city and languages"
           className="search-input" 
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
         />
         <div className="buttons">
           <button className="name">
@@ -61,10 +73,12 @@ const CountryList = () => {
         </div>
         </div>
         <div className="countries-wrapper">
-            {countriesData.map((country) => (
+            {filteredCountries.map((country) => (
                 <div key={country.cca3} className="country">
                     <img src={country.flags.svg} alt={`Flag of ${country.name.common}`} width='50'/>
-                    <div>{country.name.common}</div>
+                    <div className="country_name">{country.name.common}</div>
+                    <div>Capital: {country.capital}</div>
+                    <div>Population: {country.population}</div>
                 </div>
             ))
             }
