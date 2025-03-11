@@ -6,6 +6,7 @@ const CountryList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [sortConfig, setSortConfig] = useState({key: null, direction: 'ascending'});
 
   useEffect(() => {
     const fetchCountryData = async () => {
@@ -25,6 +26,34 @@ const CountryList = () => {
     fetchCountryData();
   }, []);
 
+//   Shorting function
+const shortCountries = (key) => {
+    let direction = 'ascending';
+    if(sortConfig.key === key && sortConfig.direction === 'ascending'){
+        direction = 'descending';
+    }
+
+    setSortConfig({key, direction});
+
+    setCountriesData((prevData) => {
+        const shortedData = [...prevData].sort((a, b) => {
+          let comparison = 0;
+
+          if (key === "name"){
+            comparison = a.name.common.localeCompare(b.name.common);
+          } else if (key === "population") {
+            comparison = (a.population || 0) - (b.population || 0);
+          } else if (key === "capital") {
+            comparison = (a.capital?.[0] || "").localeCompare(b.capital?.[0] || "");
+          }
+          return direction === 'ascending' ? comparison : -comparison;
+        })
+        return shortedData;
+    })
+
+}
+
+//   filter countries based on search queary..
   const filteredCountries = countriesData.filter(country => {
     const countryName = country.name.common.toLowerCase();
     const capitalName = (country.capital?.[0] || " ").toLowerCase();
@@ -59,14 +88,15 @@ const CountryList = () => {
           onChange={(e) => setSearchQuery(e.target.value)}
         />
         <div className="buttons">
-          <button className="name">
+          <button className="name" onClick={() => shortCountries("name")}>
             Name
           </button>
-          <button className="capital">
+          <button className="capital" onClick={() => shortCountries("capital")}>
             Capital
           </button>
           <button
             className="population"
+            onClick={() => shortCountries("population")}
         >
             Population
           </button>
