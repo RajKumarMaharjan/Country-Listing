@@ -6,7 +6,7 @@ const CountryCard = ({ filteredCountries }) => {
     <div className="countries-wrapper">
     {filteredCountries.map((country) => (
         <div key={country.cca3} className="country">
-            <img src={country.flags.svg} alt={`Flag of ${country.name.common}`} width='50'/>
+            <img src={country.flags.svg} alt={`Flag of ${country.name.common}`} width='100'/>
             <div className="country_name">{country.name.common}</div>
             <div>Capital: {country.capital}</div>
             <div>Population: {country.population.toLocaleString()}</div>

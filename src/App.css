@@ -97,8 +97,8 @@ header .subtitle {
   margin: 0.5rem;
   padding: 2rem 0rem;
   border-radius: 0.2rem;
-  background: white;
-  border: 1px solid #cccc;
+  border: 1px solid #807676cc;
+  background: #dfe3e3;
 }
 
 .country_name {
@@ -112,6 +112,8 @@ header .subtitle {
     flex-direction: column;
     gap: 8px;
     margin-top: 20px;
+    padding-inline: 4rem;
+    margin-bottom: 4rem;
 }
 
 .population-bar-wrapper {
