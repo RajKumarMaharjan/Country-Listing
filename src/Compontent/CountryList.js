@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
+import ChartBar from "./chartBar";
 import "../App.css";
+import CountryCard from "./countryCard";
 
 const CountryList = () => {
   const [countriesData, setCountriesData] = useState([]);
@@ -102,17 +104,8 @@ const shortCountries = (key) => {
           </button>
         </div>
         </div>
-        <div className="countries-wrapper">
-            {filteredCountries.map((country) => (
-                <div key={country.cca3} className="country">
-                    <img src={country.flags.svg} alt={`Flag of ${country.name.common}`} width='50'/>
-                    <div className="country_name">{country.name.common}</div>
-                    <div>Capital: {country.capital}</div>
-                    <div>Population: {country.population}</div>
-                </div>
-            ))
-            }
-        </div>
+        <CountryCard filteredCountries={filteredCountries}/>
+        <ChartBar filteredCountries={filteredCountries} />
       </main>
     </div>
   );

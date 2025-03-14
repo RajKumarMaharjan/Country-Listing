@@ -106,3 +106,34 @@ header .subtitle {
   font-weight: 600;
   padding: 8px 0;
 }
+
+.chart-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.population-bar-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.country-label {
+    width: 150px;
+    font-weight: bold;
+}
+
+.population-bar-container {
+    flex-grow: 1; 
+    background-color: #ddd;
+    height: 24px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.population-bar {
+    height: 100%;
+    transition: width 0.5s ease-in-out;
+}
